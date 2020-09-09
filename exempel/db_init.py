@@ -17,6 +17,15 @@ CREATE_TABLE = '''
                 )
                 '''
 
+INSERT_DATA = '''
+            INSERT INTO person(
+                id,
+                firstname,
+                lastname
+            )
+            VALUES (?, ?, ?)
+            '''
+
 
 def open_connection(filename):
     return sqlite3.connect(filename)
@@ -32,16 +41,10 @@ def create_table(connection):
 
 def insert_data(connection):
     try:
-        connection.executemany(
-            '''
-            INSERT OR IGNORE INTO person(
-                id,
-                firstname,
-                lastname
-            )
-            VALUES (?, ?, ?)
-            ''',
-            EXAMPLE_DATASET)
+        with connection:
+            connection.executemany(INSERT_DATA, EXAMPLE_DATASET)
+    except sqlite3.IntegrityError:
+        print("couldn't add Joe twice")
     except Exception:
         print("Failed to insert")
         raise

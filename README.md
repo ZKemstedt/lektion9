@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 ### Setup linting in Visual Studio Code
 
-1. Open launch.json in .vscode
+1. Open settings.json in .vscode
 2. Add config for linting:
 
 ```json

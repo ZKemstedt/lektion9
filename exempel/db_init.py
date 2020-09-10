@@ -1,11 +1,11 @@
 import sqlite3
 
 EXAMPLE_DATASET = (
-    ("Alice", "Smith"),
-    ("Bob", "Smith"),
-    ("Carol", "Brown"),
-    ("Carlos", "Rojas"),
-    ("Charlie", "Miller")
+    (1, "Alice", "Smith"),
+    (2, "Bob", "Smith"),
+    (3, "Carol", "Brown"),
+    (4, "Carlos", "Rojas"),
+    (5, "Charlie", "Miller")
 )
 
 CREATE_TABLE = '''
@@ -19,10 +19,11 @@ CREATE_TABLE = '''
 
 INSERT_DATA = '''
             INSERT INTO person(
+                id,
                 firstname,
                 lastname
             )
-            VALUES (?, ?)
+            VALUES (?, ?, ?)
             '''
 
 

@@ -281,7 +281,7 @@ next_uppg(16)
 # for file-objects previously opened with python
 prints(f'{f.closed}')
 
-# This doesn't work well files that have not been opened...
+# This doesn't work well for files that have not been opened...
 prints('is the file \'sql-exercises.sql\' closed?')
 try:
     file = Path('sql-exercises.sql')

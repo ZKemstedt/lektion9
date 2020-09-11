@@ -10,7 +10,7 @@ SILENT = False
 nl = '\n'
 
 
-def next_uppg(i: t.Optional[int] = 0, skip: t.Optional[bool] = False) -> None:
+def next_uppg(i: int = 0, skip: t.Optional[bool] = False) -> None:
     """
     Prints some spacing and a header inbetween each \
     exercise. User has to press enter to go to the next exercise
@@ -30,7 +30,7 @@ def next_uppg(i: t.Optional[int] = 0, skip: t.Optional[bool] = False) -> None:
     print(text)     # See? this is why I prefer my normal way of doing it.
 
 
-next_uppg(0)
+next_uppg(0, skip=True)
 
 if len(argv) > 1:
     try:

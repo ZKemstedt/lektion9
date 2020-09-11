@@ -3,33 +3,30 @@
 from pathlib import Path
 from sys import argv
 from random import randint
+import typing as t
 
 
 SILENT = False
+nl = '\n'
 
 
-def next_uppg(i: int = 0, skip: bool = False) -> None:
-    """uppg seperator function
-
-    description:
-        Prints some spacing and a header inbetween each
-        exercise user has to press enter to go to the next exercise
-    params:
-        i :int: the uppgift identifier, defaults to 0
-        skip :bool: whether to skip waiting for the user, defaults to False
+def next_uppg(i: t.Optional[int] = 0, skip: t.Optional[bool] = False) -> None:
+    """
+    Prints some spacing and a header inbetween each \
+    exercise. User has to press enter to go to the next exercise
     """
     if SILENT:
         return
     if not skip:
-        _ = input('press enter key to continue...')
+        _ = input('press enter to continue...')
     if i:
         title = f'\t\t  Uppgift {i}'
     else:
-        title = '~ Finding path and touching your files... (in a lewd way) ~'
+        title = '~ Finding path and touching your files... ~'
     text = (f"""
 \n================================================
 {title}
-""")                # This is a mess...
+""")                # This string is a mess...
     print(text)     # See? this is why I prefer my normal way of doing it.
 
 
@@ -82,14 +79,14 @@ except Exception as e:
 next_uppg(3)
 
 try:
-    with open(argv[0]) as i:  # we're gonna append lines from this file.
+    with open(argv[0]) as o:  # we're gonna append lines from this file.
         with p.open(mode='a') as f:
             f.seek(0, 2)
             for _ in range(10):  # 10 lines is enough.
-                word = i.readline()
+                word = o.readline()
                 f.write(word)
                 if not SILENT:
-                    print(f' wrote {word} to {f.name}')
+                    print(f' wrote {word.rstrip(nl)} to {f.name}')
 except Exception as e:
     print(f'Error: {e}')
 
@@ -103,7 +100,7 @@ try:
     with p.open(mode='r') as f:
         for i in range(n):
             f.seek(-i, 2)
-            lines.append(f'{f.readline()}') # todo: linecounter ?
+            lines.append(f'{f.readline()}')  # todo: linecounter ?
 except Exception as e:
     print(f'Error: {e}')
 else:
@@ -195,10 +192,9 @@ except Exception as e:
 
 # 10. Write a Python program to count the frequency of words in a file.
 next_uppg(10)
-n = '\n'
 
 try:
-    words = {}
+    words: t.Dict[str, int] = {}
     lines = []
     with p.open(mode='r') as f:
         for line in f:
@@ -215,7 +211,7 @@ else:
 
     if not SILENT:
         for word, count in words.items():
-            print(f'`{word.rstrip(n)}` appeared `{count}` times.')
+            print(f'`{word.rstrip(nl)}` appeared `{count}` times.')
 
 
 # 11. Write a Python program to get the file size of a plain file.
@@ -224,19 +220,7 @@ next_uppg(11)
 # method 1
 size = p.stat().st_size
 if not SILENT:
-    print(f'filesize: {size}')
-
-
-# method 2
-def file_len(fname):
-    with open(fname) as f:
-        for i, _ in enumerate(f):
-            pass
-    return i + 1
-
-
-if not SILENT:
-    print(f'filesize: {file_len(p)}')
+    print(f'filesize: {size} bytes')
 
 
 # 12. Write a Python program to write a list to a file.
@@ -247,10 +231,10 @@ lines = [str(randint(0, 100)) + '\n' for _ in range(20)]
 
 try:
     with p.open(mode='w') as f:
-        for i in lines:
-            f.write(i)
+        for line in lines:
+            f.write(line)
             if not SILENT:
-                print(f'wrote {i.rstrip(n)} to {p.name}')
+                print(f'wrote {line.rstrip(nl)} to {p.name}')
 
 except Exception as e:
     print(f'Error: {e}')
@@ -266,22 +250,21 @@ if file_out.exists():
 file_out.touch(exist_ok=True)
 
 try:
-    with file_out.open(mode='w') as i:
+    with file_out.open(mode='w') as o:
         with p.open(mode='r') as f:
             if clear:
-                i.truncate()
+                o.truncate()
                 if not SILENT:
                     print(f'truncated {file_out.name}')
             for line in f:
-                i.write(line)
-                print(f'copied {line.rstrip(n)} from '
+                o.write(line)
+                print(f'copied {line.rstrip(nl)} from '
                       f'{p.name} to {file_out.name}')
 except Exception as e:
     print(f'Error: {e}')
 
 
 # 16. Write a Python program to assess if a file is closed or not.
-
 
 
 # 17. Write a Python program to remove newline characters from a file.

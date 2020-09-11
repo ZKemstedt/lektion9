@@ -78,8 +78,8 @@ except Exception as e:
 # 3. Write a Python program to append text to a file and display the text.
 next_uppg(3)
 
-try:
-    with open(argv[0]) as o:  # we're gonna append lines from this file.
+try:  # we're gonna append lines from this file.
+    with open(argv[0], mode='r') as o:
         with p.open(mode='a') as f:
             f.seek(0, 2)
             for _ in range(10):  # 10 lines is enough.

@@ -258,8 +258,9 @@ try:
                     print(f'truncated {file_out.name}')
             for line in f:
                 o.write(line)
-                print(f'copied {line.rstrip(nl)} from '
-                      f'{p.name} to {file_out.name}')
+                if not SILENT:
+                    print(f'copied {line.rstrip(nl)} from '
+                          f'{p.name} to {file_out.name}')
 except Exception as e:
     print(f'Error: {e}')
 
